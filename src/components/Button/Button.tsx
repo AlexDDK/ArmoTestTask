@@ -1,28 +1,18 @@
-import React from 'react'
-// import styles from './Button.module.css'
+import React, { Children } from 'react'
+import styles from './Button.module.css'
 import { IButtonProps } from './Button.props'
-import { useAppSelector, useAppDispatch } from '../redux/hooks'
-import { addUsersAC } from '../redux/actions/userAction';
-import { IUser } from "../../interfaces/user.interface";
+import cn from 'classnames'
 
 
 
-
-export default function Button({className, ...props}: IButtonProps): JSX.Element {
-    const dispatch = useAppDispatch();
-    console.log(process.env.DOMAIN);
+export default function Button({ children,className,setPage, ...props}: IButtonProps): JSX.Element {
     
-    const listHandler = async () => {
-        const resp = await fetch(`${process.env.DOMAIN}/users`)
-
-        if (resp.ok) {
-            const list : Array<IUser> = await resp.json()
-            console.log('LIST>>', list);
-            dispatch(addUsersAC(list))
-        }
+    const clickHandler = () => {
+        console.log('CLICK HANDLER');
+        setPage()
     }
 
     return (
-    <button onClick={listHandler}>Получить список пользователей!</button>
+    <button className={cn(styles.pageButton, className)}{...props} onClick={clickHandler}>{children}</button>
     )
 }

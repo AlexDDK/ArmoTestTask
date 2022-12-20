@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react'
 import styles from './OneUser.module.css'
 import { IOneUserProps } from './OneUser.props'
 import { useAppSelector, useAppDispatch } from '../redux/hooks'
+import { delFetchToDB } from '../helpers'
 
 
 
-export default function OneUser({className,user,setList, ...props}: IOneUserProps): JSX.Element {
+export default function OneUser({className,user,setList,currentPage, ...props}: IOneUserProps): JSX.Element {
     
     const birth: Date = new Date(user.birthDate)
     const year = birth.getFullYear()
@@ -13,13 +14,7 @@ export default function OneUser({className,user,setList, ...props}: IOneUserProp
     const date = birth.getDate()
 
     const delHandler = () => {
-        fetch(`${process.env.DOMAIN}/${user.id}`, {
-            method: "DELETE",
-        })
-        .then(data => fetch(`${process.env.DOMAIN}?_page=1&_limit=10`))
-        .then(resp =>  resp.json())
-        .then(data => setList(data))
-        .catch(err => alert(err))
+        delFetchToDB(user.id, setList, currentPage)
     }
         
     return (
