@@ -5,14 +5,14 @@ import cn from 'classnames'
 
 
 
-export default function Button({ children,className,setPage, ...props}: IButtonProps): JSX.Element {
+export default function Button({ children,className,clickHandler, ...props}: IButtonProps): JSX.Element {
     
-    const clickHandler = () => {
+    const handler = () => {
         console.log('CLICK HANDLER');
-        setPage()
+        clickHandler()
     }
 
     return (
-    <button className={cn(styles.pageButton, className)}{...props} onClick={clickHandler}>{children}</button>
+    <button className={cn(styles.pageButton, className)}{...props} onClick={handler}>{children}</button>
     )
 }
