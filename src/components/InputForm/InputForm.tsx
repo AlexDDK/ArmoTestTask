@@ -1,26 +1,29 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react'
 import styles from './InputForm.module.css'
 import { IInputFormProps } from './InputForm.props'
-import { useAppSelector, useAppDispatch } from '../redux/hooks'
-import { addUsersAC } from '../redux/actions/userAction';
-import { IUser } from "../../interfaces/user.interface";
-import OneUser from '../OneUser/OneUser';
-import { changeFetchToDB, dateFromForm, dateToForm, fetchToDB } from '../helpers';
+import { changeFetchToDB, dateFromForm, dateToForm, fetchToDB, postFetchToDB } from '../helpers';
 import Button from '../Button/Button';
 import cn from 'classnames'
 
 
 
 
-export default function InputForm({ children, user, setActive, setOneUser, ...props}: IInputFormProps): JSX.Element {
+export default function InputForm({ children, user, setActive, setOneUser, setList, currentPage, ...props}: IInputFormProps): JSX.Element {
 
-    const [inputs, setInputs] = useState({
+    const initialState = user ? {
         'firstName' : user.firstName,
         'lastName' : user.lastName,
         'access' : user.access,
         'birthDate' : user.birthDate,
         'email' : user.email,
-    });
+    } : {
+        'firstName' : '',
+        'lastName' : '',
+        'access' : false,
+        'birthDate' : '',
+        'email' : '',
+    }
+    const [inputs, setInputs] = useState(initialState);
     
 
 
@@ -37,8 +40,9 @@ export default function InputForm({ children, user, setActive, setOneUser, ...pr
     
     const handleSubmit = (event : FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        changeFetchToDB(user.id, inputs, setOneUser)
+        user ? changeFetchToDB(user.id, inputs, setOneUser) : postFetchToDB(inputs, currentPage, setList)
         setActive(false)
+        setInputs(initialState)
     }
 
     return (
@@ -47,22 +51,22 @@ export default function InputForm({ children, user, setActive, setOneUser, ...pr
 
             <label>
                 First Name
-                <input type="text" value={inputs.firstName} onChange={handleChange} name='firstName'/>
+                <input type="text" required value={inputs.firstName} onChange={handleChange} name='firstName'/>
             </label>
 
             <label>
                 Last Name
-                <input type="text" value={inputs.lastName} onChange={handleChange} name='lastName'/>
+                <input type="text" required value={inputs.lastName} onChange={handleChange} name='lastName'/>
             </label>
 
             <label>
                 Email
-                <input type="email" value={inputs.email} onChange={handleChange} name='email'/>
+                <input type="email" required value={inputs.email} onChange={handleChange} name='email'/>
             </label>
 
             <label> 
                 birthDate
-                <input type="datetime-local" defaultValue={dateToForm(inputs.birthDate)} onChange={handleChange} name='birthDate' />
+                <input type="datetime-local" required defaultValue={dateToForm(inputs.birthDate)} onChange={handleChange} name='birthDate' />
             </label>
 
             <div>

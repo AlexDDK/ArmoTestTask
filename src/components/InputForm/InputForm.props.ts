@@ -4,7 +4,9 @@ import { IUser } from "../../interfaces/user.interface";
 
 export interface IInputFormProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
     children?: ReactNode,
-    user: IUser,
+    user?: IUser,
     setActive: Function,
-    setOneUser: Function
+    setOneUser?: Function,
+    setList? : Function,
+    currentPage? : number
 }

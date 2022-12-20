@@ -8,6 +8,8 @@ import OneUser from '../OneUser/OneUser';
 import { fetchToDB } from '../helpers';
 import Button from '../Button/Button';
 import cn from 'classnames'
+import Modal from '../Modal/Modal';
+import InputForm from '../InputForm/InputForm';
 
 
 
@@ -15,6 +17,8 @@ import cn from 'classnames'
 export default function UserList({ setModalActive, ...props}: IUserListProps): JSX.Element {
     const [list , setList] = useState([]);
     const [currentPage, setCurrentPage] = useState(1)
+    const [active, setActive] = useState(false)
+
     
 
     
@@ -39,6 +43,16 @@ export default function UserList({ setModalActive, ...props}: IUserListProps): J
             {(list.length > 0) && <Button className={cn(styles.button, styles.active)} clickHandler={() => {}}><p>{currentPage}</p></Button>}
             {(list.length > 9) && <Button className={styles.button} clickHandler={() => setCurrentPage(currentPage +1)}><p>{currentPage+1}</p></Button>}
             {(list.length > 9) && <Button className={styles.button} clickHandler={() => setCurrentPage(currentPage +1)}><p>Следующая</p></Button>}
+            <div>
+            <Button clickHandler={()=> setActive(true)}>Добавить пользователя</Button>
+            </div>
+            <Modal active={active} setActive={setActive}>
+                {list.length < 10 ?  
+                    <InputForm setActive={setActive} setList={setList} currentPage={currentPage}/> :
+                    <InputForm setActive={setActive} />
+                }
+                {/* <InputForm setActive={setActive} updatePage={list.length < 10} setList={setList} currentPage={currentPage}/> */}
+            </Modal>
         </div>
     )
 }

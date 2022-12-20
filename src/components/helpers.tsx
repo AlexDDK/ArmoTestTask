@@ -19,7 +19,6 @@ export function delFetchToDB(id: number, setList : Function, currentPage: number
 }
 
 export function changeFetchToDB(id : number, data: IChange, setOneUser: Function) : void {
-    
     fetch(`${process.env.DOMAIN}/${id}`, {
         method: 'PATCH',
         headers: {
@@ -31,12 +30,20 @@ export function changeFetchToDB(id : number, data: IChange, setOneUser: Function
     .then((data) => setOneUser(data))
 }
 
+export function postFetchToDB( data: IChange, currentPage: number | undefined, setList: Function | undefined) : void {
+    fetch(`${process.env.DOMAIN}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(data => data.json())
+    .then(_ => currentPage && fetchToDB(currentPage, setList))
+}
 
 
-
-
-
- export function dateToForm (data: string) : string {
+export function dateToForm (data: string) : string {
     const birth: Date = new Date(data)
     const year = birth.getFullYear()
     const month = String(birth.getMonth()).length > 1 ? String(birth.getMonth()+1) : `0`+ String(birth.getMonth()+1)
