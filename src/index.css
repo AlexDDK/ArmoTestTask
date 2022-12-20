@@ -1,0 +1,19 @@
+.container {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    height: 100vh;
+}
+
+.sideContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: gray;
+    padding-top: 30px
+}
+
+.mainContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

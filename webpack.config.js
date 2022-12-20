@@ -4,12 +4,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const {CleanWebpackPlugin} = require('clean-webpack-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
+const Dotenv = require('dotenv-webpack');
 
 const production = process.env.NODE_ENV === 'production'
 
 module.exports = {
     mode: production ? 'production' : 'development',
-    entry: './src/index.js',
+    entry: './src/index.tsx',
     output: {
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, './dist'),
@@ -25,7 +26,7 @@ module.exports = {
         port: 3001,
     },
     resolve: {
-        extensions: ['.json','.js', 'css', 'tsx', 'ts']
+        extensions: ['.json','.js', '.css', '.tsx', '.ts']
     },
     optimization: {
         minimizer: [
@@ -41,6 +42,7 @@ module.exports = {
             filename: production ? '[name].[contenthash].css' : '[name].css'
         }),
         new CleanWebpackPlugin(),
+        new Dotenv(),
     ],
     module: {
         rules: [

@@ -1,0 +1,16 @@
+
+.oneUser {
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 0 20px;
+    margin-bottom: 10px;
+}
+
+.oneUser h2{
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.oneUser p{
+    margin: 3px 0
+}
