@@ -5,5 +5,4 @@ export interface IOneUserProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivE
     user: IUser,
     setList: Function,
     currentPage: number,
-    setModalActive: Function
 }

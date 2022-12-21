@@ -8,7 +8,6 @@ import cn from 'classnames'
 export default function Button({ children,className,clickHandler, ...props}: IButtonProps): JSX.Element {
     
     const handler = () => {
-        console.log('CLICK HANDLER');
         clickHandler()
     }
 

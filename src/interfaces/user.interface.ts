@@ -8,9 +8,9 @@ export interface IUser {
 }
 
 export interface IChange {
-    email: string;
-    access: boolean;
-    lastName: string;
-    birthDate: string;
-    firstName: string;
+    email?: string;
+    access?: boolean;
+    lastName?: string;
+    birthDate?: string;
+    firstName?: string;
 }

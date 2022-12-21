@@ -31,7 +31,7 @@ export function changeFetchToDB(id : number, data: IChange, setOneUser: Function
 }
 
 export function postFetchToDB( data: IChange, currentPage: number | undefined, setList: Function | undefined) : void {
-    fetch(`${process.env.DOMAIN}`, {
+    data && fetch(`${process.env.DOMAIN}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -42,15 +42,29 @@ export function postFetchToDB( data: IChange, currentPage: number | undefined, s
     .then(_ => currentPage && fetchToDB(currentPage, setList))
 }
 
+export function filterFetchToDB( data: IChange, userId : string, setList: Function, filterPage: number) : void {
+    console.log('ENTER IN FILTER FETCH. FILTER PAGE = ', filterPage);
+    
+    const searchString = dateToFilter(data, userId)
+    console.log("SEARCH STRING=", searchString);
 
-export function dateToForm (data: string) : string {
-    const birth: Date = new Date(data)
-    const year = birth.getFullYear()
-    const month = String(birth.getMonth()).length > 1 ? String(birth.getMonth()+1) : `0`+ String(birth.getMonth()+1)
-    const date = String(birth.getDate()).length >1 ? String(birth.getDate()) : '0' + String(birth.getDate())
-    const hours = String(birth.getHours()).length >1 ? String(birth.getHours()) : '0' + String(birth.getHours())
-    const minutes = String(birth.getMinutes()).length >1 ? String(birth.getMinutes()) : '0' + String(birth.getMinutes())
-    return `${year}-${month}-${date}T${hours}:${minutes}`;
+    searchString != '' &&
+    fetch(`${process.env.DOMAIN}?${searchString}&_page=${filterPage}&_limit=10`)
+    .then(data => data.json())
+    .then(data => setList(data))
+}
+
+
+export function dateToForm (data: string) : string {    
+    if (data) {
+        const birth: Date = new Date(data)
+        const year = birth.getFullYear()
+        const month = String(birth.getMonth()).length > 1 ? String(birth.getMonth()+1) : `0`+ String(birth.getMonth()+1)
+        const date = String(birth.getDate()).length >1 ? String(birth.getDate()) : '0' + String(birth.getDate())
+        const hours = String(birth.getHours()).length >1 ? String(birth.getHours()) : '0' + String(birth.getHours())
+        const minutes = String(birth.getMinutes()).length >1 ? String(birth.getMinutes()) : '0' + String(birth.getMinutes())
+        return `${year}-${month}-${date}T${hours}:${minutes}`;
+    }
 }
 
 export function dateFromForm(data: string) : string {
@@ -63,4 +77,20 @@ export function dateFromForm(data: string) : string {
     const amPm = date.getHours() > 12 ? 'PM' : 'AM'
     const min = String(date.getMinutes()).length >1 ? String(date.getMinutes()) : '0' + String(date.getMinutes())
     return `${arr[1]} ${day}, ${year} ${hour}:${min} ${amPm}`
+}
+
+export function dateToFilter(data: IChange, userId : string) {
+    let concatString : string = ''
+    userId != '' ? concatString += `id=${userId}` : concatString
+    // console.log("CONCAT STRING AFTER USER ID", concatString);
+
+    for (let prop in data) {
+        let key = prop as keyof typeof data; 
+        let value = data[key];
+        if ((String(value) != '') && (String(value) != 'null')){
+            concatString == '' ? concatString += `${key}=${value}` : concatString += `&${key}=${value}`
+            // console.log("CONCAT STRING>>>>>", concatString);
+        }
+    }
+    return `${concatString}`
 }

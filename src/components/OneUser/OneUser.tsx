@@ -9,7 +9,7 @@ import InputForm from '../InputForm/InputForm'
 
 
 
-export default function OneUser({className,user,setList,currentPage,setModalActive, ...props}: IOneUserProps): JSX.Element {
+export default function OneUser({className,user,setList,currentPage, ...props}: IOneUserProps): JSX.Element {
     const [oneUser, setOneUser] = useState(user)
     const [active, setActive] = useState(false)
 
@@ -28,7 +28,7 @@ export default function OneUser({className,user,setList,currentPage,setModalActi
             <Button clickHandler={() => delFetchToDB(user.id, setList, currentPage)}><p>Delete</p></Button>
             <Button clickHandler={() => setActive(true)}><p>Change user</p></Button>
             <Modal active={active} setActive={setActive}>
-                <InputForm user={oneUser} setActive={setActive} setOneUser={setOneUser}/>
+                <InputForm user={oneUser} setActive={setActive} active={active}setOneUser={setOneUser}/>
             </Modal>
         </div>
     )
