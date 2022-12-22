@@ -63,6 +63,6 @@ npm i
 npm run build
 cd server
 npm i
-npm i pm2
+npm i pm2 -g
 cp -r ~/project/dist/. ~/project/server/build
 pm2 start index.js
