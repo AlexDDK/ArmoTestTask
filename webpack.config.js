@@ -36,7 +36,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            publicPath: '/',
+            // publicPath: '/',
             title: 'TestTask',
             template: path.join(__dirname, 'src', 'index.html')
         }),
