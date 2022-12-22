@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import Button from './components/Button/Button'
-import Modal from './components/Modal/Modal'
 import UserList from './components/UserList/UserList'
 
 export default function App(): JSX.Element {

@@ -2,24 +2,24 @@ import { IChange} from "../interfaces/user.interface"
 
 
 export function fetchToDB(currentPage : number, setList : Function) : void {
-    fetch(`${process.env.DOMAIN}?_page=${currentPage}&_limit=10`)
+    fetch(`${DOMAIN}?_page=${currentPage}&_limit=10`)
         .then((resp) =>  resp.json())
         .then((data) => setList(data))
         .catch(err => alert(err))
 }
 
 export function delFetchToDB(id: number, setList : Function, currentPage: number) : void {
-    fetch(`${process.env.DOMAIN}/${id}`, {
+    fetch(`${DOMAIN}/${id}`, {
         method: "DELETE",
     })
-    .then(data => fetch(`${process.env.DOMAIN}?_page=${currentPage}&_limit=10`))
+    .then(data => fetch(`${DOMAIN}?_page=${currentPage}&_limit=10`))
     .then(resp =>  resp.json())
     .then(data => setList(data))
     .catch(err => alert(err))
 }
 
 export function changeFetchToDB(id : number, data: IChange, setOneUser: Function) : void {
-    fetch(`${process.env.DOMAIN}/${id}`, {
+    fetch(`${DOMAIN}/${id}`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json'
@@ -31,7 +31,7 @@ export function changeFetchToDB(id : number, data: IChange, setOneUser: Function
 }
 
 export function postFetchToDB( data: IChange, currentPage: number | undefined, setList: Function | undefined) : void {
-    data && fetch(`${process.env.DOMAIN}`, {
+    data && fetch(`${DOMAIN}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -47,7 +47,7 @@ export function filterFetchToDB( data: IChange, userId : string, setList: Functi
     const searchString = dateToFilter(data, userId)
 
     searchString != '' &&
-    fetch(`${process.env.DOMAIN}?${searchString}&_page=${filterPage}&_limit=10`)
+    fetch(`${DOMAIN}?${searchString}&_page=${filterPage}&_limit=10`)
     .then(data => data.json())
     .then(data => setList(data))
 }
@@ -90,3 +90,5 @@ export function dateToFilter(data: IChange, userId : string) {
     }
     return `${concatString}`
 }
+
+export const DOMAIN = 'https://retoolapi.dev/TGuHPX/users'
