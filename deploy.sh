@@ -57,10 +57,12 @@ func_checkStatus "Git clone"
 func_checkNPM
 func_checkStatus "check npm"
 
+
 cd project
 npm i
 npm run build
 cd server
 npm i
+npm i pm2
 cp -r ~/project/dist/. ~/project/server/build
-npm start
+pm2 start index.js
