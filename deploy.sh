@@ -41,7 +41,7 @@ func_checkGit(){
 }
 
 echo "---Starting deploy---"
-pm2 stop index.js
+pm2 kill
 sudo apt update
 rm -Rf project
 mkdir project
