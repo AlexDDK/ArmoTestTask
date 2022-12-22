@@ -79,13 +79,13 @@ export default function InputForm({ children, user, setActive, setOneUser, setLi
                 </>
             }
             <label htmlFor='first'><span>First Name</span></label>
-                {filter && <input type="text" value={inputs.firstName } onChange={handleChange} name='firstName' id='first'/>}
-                {!filter && <input type="text" required value={inputs.firstName } onChange={handleChange} name='firstName' id='first'/>}
+                {filter && <input type="text" value={inputs.firstName.trim()} onChange={handleChange} name='firstName' id='first'/>}
+                {!filter && <input type="text" required value={inputs.firstName.trim() } onChange={handleChange} name='firstName' id='first'/>}
             
 
             <label htmlFor='last'><span>Last Name</span></label>
-                {filter && <input type="text" value={inputs.lastName} onChange={handleChange} name='lastName' id='last'/>}
-                {!filter && <input type="text" required value={inputs.lastName} onChange={handleChange} name='lastName' id='last'/>}
+                {filter && <input type="text" value={inputs.lastName.trim()} onChange={handleChange} name='lastName' id='last'/>}
+                {!filter && <input type="text" required value={inputs.lastName.trim()} onChange={handleChange} name='lastName' id='last'/>}
             
 
             <label htmlFor='email'><span>Email</span></label>
