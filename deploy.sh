@@ -40,9 +40,6 @@ func_checkGit(){
     fi
 }
 
-
-
-
 echo "---Starting deploy---"
 sudo apt update
 rm -Rf project
@@ -62,25 +59,8 @@ func_checkStatus "check npm"
 
 cd project
 npm i
-func_checkStatus "install dependencies"
 npm run build
-func_checkStatus "build app"
-cd ..
-
-
-
-
-
-
-
-
-
-
-
-
-
-        sudo apt-get -y update
-        sudo apt-get -y upgrade
-        sudo apt install -y nodejs
-        sudo apt install -y npm
-        func_checkStatus "install npm"
+cd server
+npm i
+cp -r ~/project/dist/. ~/project/server/build
+npm start

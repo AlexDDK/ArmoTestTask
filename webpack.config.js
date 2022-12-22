@@ -12,7 +12,6 @@ module.exports = {
     mode: production ? 'production' : 'development',
     entry: './src/index.tsx',
     output: {
-        
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, './dist'),
     },
@@ -36,7 +35,6 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            // publicPath: '/',
             title: 'TestTask',
             template: path.join(__dirname, 'src', 'index.html')
         }),
