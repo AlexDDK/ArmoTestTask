@@ -12,6 +12,7 @@ module.exports = {
     mode: production ? 'production' : 'development',
     entry: './src/index.tsx',
     output: {
+        path: '/',
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, './dist'),
     },
