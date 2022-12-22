@@ -1,4 +1,4 @@
-import React, { Children } from 'react'
+import React from 'react'
 import styles from './Button.module.css'
 import { IButtonProps } from './Button.props'
 import cn from 'classnames'
@@ -8,7 +8,7 @@ import cn from 'classnames'
 export default function Button({ children,className,clickHandler, ...props}: IButtonProps): JSX.Element {
     
     const handler = () => {
-        clickHandler()
+        clickHandler && clickHandler()
     }
 
     return (

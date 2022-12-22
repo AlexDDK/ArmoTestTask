@@ -1,12 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import styles from './Modal.module.css'
 import { IModalProps } from './Modal.props'
-import { useAppSelector, useAppDispatch } from '../redux/hooks'
-import { addUsersAC } from '../redux/actions/userAction';
-import { IUser } from "../../interfaces/user.interface";
-import OneUser from '../OneUser/OneUser';
-import { fetchToDB } from '../helpers';
-import Button from '../Button/Button';
 import cn from 'classnames'
 
 
@@ -25,7 +19,7 @@ export default function Modal({active, setActive, children, ...props}: IModalPro
             })} 
             onClick={e => e.stopPropagation()}
         >
-            MODAL WINDOW
+            <h3>Введите данные</h3>
             {children}
         </div>
         </div>

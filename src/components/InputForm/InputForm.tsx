@@ -59,7 +59,6 @@ export default function InputForm({ children, user, setActive, setOneUser, setLi
         filter && setfilterFlag(true)
     }
 
-
     const cleanHandler = () => {
         filter && setInputs(initialState)
         filter && setUserId('')
@@ -73,48 +72,55 @@ export default function InputForm({ children, user, setActive, setOneUser, setLi
         <div {...props} className={styles.container}>
             <form onSubmit={handleSubmit} className={styles.formContainer}> 
             {
-                filter && <label>
-                USER ID
-                <input type="text" value={userId} onChange={filterChange} name='id'/>
-            </label>
+                filter && 
+                <>
+                <label htmlFor='id'><span>USER ID</span></label>
+                <input type="text" value={userId} onChange={filterChange} name='id' id='id'/>
+                </>
             }
-            <label>
-                First Name
-                {filter && <input type="text" value={inputs.firstName } onChange={handleChange} name='firstName'/>}
-                {!filter && <input type="text" required value={inputs.firstName } onChange={handleChange} name='firstName'/>}
-            </label>
-
-            <label>
-                Last Name
-                {filter && <input type="text" value={inputs.lastName} onChange={handleChange} name='lastName'/>}
-                {!filter && <input type="text" required value={inputs.lastName} onChange={handleChange} name='lastName'/>}
-            </label>
-
-            <label>
-                Email
-                {filter && <input type="email" value={inputs.email} onChange={handleChange} name='email'/>}
-                {!filter && <input type="email" required value={inputs.email} onChange={handleChange} name='email'/>}
-            </label>
-
-            <label> 
-                birthDate
-                {filter && <input type="datetime-local" value={dateToForm(inputs.birthDate) } onChange={handleChange} name='birthDate' />}
-                {!filter && <input type="datetime-local" required value={dateToForm(inputs.birthDate) || ''} onChange={handleChange} name='birthDate' />}
-            </label>
-
-            <div>
-                Access
-                <input type="radio" id='false' value={'false'} onChange={handleChange} name='access' checked={inputs.access == false? true : false}/>
-                <label htmlFor = 'false'>false</label>
-                
-                <input type="radio" id='true' value={'true'} onChange={handleChange} name='access' checked={ inputs.access == true? true : false}/>
-                <label htmlFor = 'true'>true</label>
-            </div> 
+            <label htmlFor='first'><span>First Name</span></label>
+                {filter && <input type="text" value={inputs.firstName } onChange={handleChange} name='firstName' id='first'/>}
+                {!filter && <input type="text" required value={inputs.firstName } onChange={handleChange} name='firstName' id='first'/>}
             
 
-            <input type="submit" />
+            <label htmlFor='last'><span>Last Name</span></label>
+                {filter && <input type="text" value={inputs.lastName} onChange={handleChange} name='lastName' id='last'/>}
+                {!filter && <input type="text" required value={inputs.lastName} onChange={handleChange} name='lastName' id='last'/>}
+            
+
+            <label htmlFor='email'><span>Email</span></label>
+                {filter && <input type="email" value={inputs.email} onChange={handleChange} name='email' id='email'/>}
+                {!filter && <input type="email" required value={inputs.email} onChange={handleChange} name='email' id='email'/>}
+
+            <label htmlFor='birth'><span>birthDate</span></label>
+                {filter && <input type="datetime-local" value={dateToForm(inputs.birthDate) } onChange={handleChange} name='birthDate' id='birth'/>}
+                {!filter && <input type="datetime-local" required value={dateToForm(inputs.birthDate) || ''} onChange={handleChange} name='birthDate' id='birth'/>}
+            
+
+            <>
+                <span>Access</span>
+                <div className={styles.radio}>
+                    <div>
+                        <input type="radio" id='false' value={'false'} onChange={handleChange} name='access' checked={inputs.access == false? true : false}/>
+                        <label htmlFor = 'false'>false</label>
+                    </div>
+                
+                    <div>
+                        <input type="radio" id='true' value={'true'} onChange={handleChange} name='access' checked={ inputs.access == true? true : false}/>
+                        <label htmlFor = 'true'>true</label>
+                    </div>
+                </div>
+            </> 
+            
+            <div className={styles.submitContainer}>
+                { filter ? 
+                    <Button type="submit" className={cn(styles.submitButton, styles.filterButton)}><p>Применить фильтр</p></Button> :
+                        <Button type="submit" className={styles.submitButton}><p>Отправить форму</p></Button>
+            }
+
+            </div>
             </form>
-            {filterFlag && <Button clickHandler={cleanHandler}><p>Сбросить фильтры</p></Button>}
+            {filterFlag && <Button clickHandler={cleanHandler} className={styles.cleanButton}><p>Сбросить фильтры</p></Button>}
         </div>
     )
 }

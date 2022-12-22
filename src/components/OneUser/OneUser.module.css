@@ -1,16 +1,79 @@
 
 .oneUser {
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 10px;
     border: 1px solid gray;
     border-radius: 5px;
-    padding: 0 20px;
+    padding: 5px 5px 15px 5px;
     margin-bottom: 10px;
+    background: white;
+}
+
+.oneUserContainer {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 10px;
 }
 
 .oneUser h2{
     text-align: center;
     margin-bottom: 5px;
+    grid-area: 1/1/3/3;
+    padding: 0 20px;
 }
 
 .oneUser p{
-    margin: 3px 0
+    margin: 3px 0;
+    padding: 0 20px;
+
+}
+
+.email {
+    grid-area: 3/1/4/3;
+}
+
+.access {
+    grid-area: 4/1/5/3;
+}
+
+.delButtonContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.delButton {
+    grid-area: 1/2/2/3;
+    padding: 3px 5px;
+    background: rgb(250, 148, 148);
+    border: none;
+    border-radius: 5px;
+    color: white;
+}
+
+.delButton:hover {
+    background: rgb(248, 66, 66);
+}
+
+.changeButtonContainer {
+    grid-area: 5/1/6/3;
+    display: flex;
+    justify-content: center;
+}
+
+.changeButton {
+    background: rgb(139, 206, 252);
+    border: none;
+    border-radius: 8px;
+    padding: 5px 0;
+}
+
+.changeButton:hover {
+    background: rgb(73, 179, 250);
+    color: white;
+}
+
+.changeButton:active {
+    background: rgb(2, 119, 197);
 }

@@ -43,10 +43,8 @@ export function postFetchToDB( data: IChange, currentPage: number | undefined, s
 }
 
 export function filterFetchToDB( data: IChange, userId : string, setList: Function, filterPage: number) : void {
-    console.log('ENTER IN FILTER FETCH. FILTER PAGE = ', filterPage);
     
     const searchString = dateToFilter(data, userId)
-    console.log("SEARCH STRING=", searchString);
 
     searchString != '' &&
     fetch(`${process.env.DOMAIN}?${searchString}&_page=${filterPage}&_limit=10`)
@@ -82,14 +80,12 @@ export function dateFromForm(data: string) : string {
 export function dateToFilter(data: IChange, userId : string) {
     let concatString : string = ''
     userId != '' ? concatString += `id=${userId}` : concatString
-    // console.log("CONCAT STRING AFTER USER ID", concatString);
 
     for (let prop in data) {
         let key = prop as keyof typeof data; 
         let value = data[key];
         if ((String(value) != '') && (String(value) != 'null')){
             concatString == '' ? concatString += `${key}=${value}` : concatString += `&${key}=${value}`
-            // console.log("CONCAT STRING>>>>>", concatString);
         }
     }
     return `${concatString}`
